@@ -1,0 +1,71 @@
+﻿@{
+    NopHtml.AddCssFileParts(RasteBazarDefaults.ProductsCssResource);
+    NopHtml.AppendScriptParts(ResourceLocation.Footer, RasteBazarDefaults.ProductsScriptResource);
+    NopHtml.AppendScriptParts(ResourceLocation.Footer, RasteBazarDefaults.BaseScriptScriptResource);
+    Layout = "_ColumnsOne";
+}
+
+<div id="root">
+    <div class="input__panel">
+
+        <h1>Products Manager</h1>
+        <button id="btnSave" class="btn__primery" onclick="ShowOrHidePopup(true)">Save</button>
+
+    </div>
+
+    <div class="table__panel">
+        <table>
+            <tr>
+                <th hidden>Id</th>
+                <th>Index</th>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Sku</th>
+                <th>Price</th>
+                <th>Stock Quantity</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tbody id="table_holder">
+
+            </tbody>
+        </table>
+
+        <table hidden>
+            <tbody id="table_append">
+                <tr>
+                    <td hidden>#Id#</td>
+                    <td>#Index#</td>
+                    <td>#Image#</td>
+                    <td>#Name#</td>
+                    <td>#Sku#</td>
+                    <td>#Price#</td>
+                    <td>#StockQuantity#</td>
+                    <td class="btnUpdate" onclick="Update(#Id#)">Edit</td>
+                    <td class="btnDelete" onclick="Delete(#Id#)">Delete</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="create_popup" class="popup">
+        <div class="popup_content">
+            <h3>Create Product</h3>
+            <span class="close">&times;</span>
+
+            <input type="text" id="txtId" class="" name="Id" placeholder="Id" hidden />
+            <input type="text" id="txtName" class="txtInput" name="Name" placeholder="Name" />
+            <input type="text" id="txtSku" class="txtInput" name="Sku" placeholder="Sku" />
+            <input type="text" id="txtPrice" class="txtInput" name="Price" placeholder="Price" />
+            <input type="text" id="txtStockQuantity" class="txtInput" name="StockQuantity" placeholder="Stock Quantity" />
+            <input type="image" id="product_img" src="#src#" class="image" name="Image" />
+
+            <button id="btnSave" class="btn__primery" onclick="Save()">Save</button>
+
+        </div>
+    </div>
+</div>
+
+<script asp-location="Footer">
+   
+</script>

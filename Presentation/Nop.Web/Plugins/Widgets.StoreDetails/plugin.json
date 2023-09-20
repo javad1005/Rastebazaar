@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Store Details",
+  "SystemName": "Widgets.StoreDetails",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "rastebazare team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.StoreDetails.dll",
+  "Description": "این پلاگین ویژگی های فروشگاه مانند : پرداخت مظمئن ،پشتیبانی 24 ساعته و ... را در صفحه نخست نمایش میدهد ."
+}

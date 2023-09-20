@@ -1,0 +1,114 @@
+﻿{
+  "InstalledPluginNames": [
+    "Obsolete field, using only for compatibility"
+  ],
+  "InstalledPlugins": [
+    {
+      "SystemName": "Nop.Plugin.Api",
+      "Version": "4.5.0"
+    },
+    {
+      "SystemName": "Payments.PayPalCommerce",
+      "Version": "1.16"
+    },
+    {
+      "SystemName": "DiscountRequirement.MustBeAssignedToCustomerRole",
+      "Version": "1.40"
+    },
+    {
+      "SystemName": "CurrencyExchange.ECB",
+      "Version": "1.33"
+    },
+    {
+      "SystemName": "Misc.Sendinblue",
+      "Version": "3.56"
+    },
+    {
+      "SystemName": "Misc.WebApi.Frontend",
+      "Version": "1.00"
+    },
+    {
+      "SystemName": "Misc.Zettle",
+      "Version": "1.10"
+    },
+    {
+      "SystemName": "Payments.CheckMoneyOrder",
+      "Version": "1.51"
+    },
+    {
+      "SystemName": "Payments.CyberSource",
+      "Version": "1.10"
+    },
+    {
+      "SystemName": "Payments.Manual",
+      "Version": "1.60"
+    },
+    {
+      "SystemName": "Pickup.PickupInStore",
+      "Version": "1.47"
+    },
+    {
+      "SystemName": "RasteBazar",
+      "Version": "1.2"
+    },
+    {
+      "SystemName": "Shipping.FixedByWeightByTotal",
+      "Version": "2.36"
+    },
+    {
+      "SystemName": "Tax.FixedOrByCountryStateZip",
+      "Version": "1.44"
+    },
+    {
+      "SystemName": "Widgets.FacebookPixel",
+      "Version": "2.02"
+    },
+    {
+      "SystemName": "Widgets.GoogleAnalytics",
+      "Version": "1.76"
+    },
+    {
+      "SystemName": "Widgets.NivoSlider",
+      "Version": "1.50"
+    },
+    {
+      "SystemName": "Widgets.What3words",
+      "Version": "1.03"
+    },
+    {
+      "SystemName": "ExternalAuth.Facebook",
+      "Version": "1.80"
+    },
+    {
+      "SystemName": "Cypher.Phoenix",
+      "Version": "3.0.3"
+    },
+    {
+      "SystemName": "SevenSpikes.Core",
+      "Version": "4.6"
+    },
+    {
+      "SystemName": "SevenSpikes.Nop.Plugins.AnywhereSliders",
+      "Version": "4.6"
+    },
+    {
+      "SystemName": "SevenSpikes.Nop.Plugins.MegaMenu",
+      "Version": "4.6"
+    },
+    {
+      "SystemName": "Widgets.StoreDetails",
+      "Version": "1.0"
+    }
+  ],
+  "PluginNamesToUninstall": [
+    "Payments.CyberSource"
+  ],
+  "PluginNamesToDelete": [
+    "Nop.Plugin.MyReactApp",
+    "MultiFactorAuth.GoogleAuthenticator",
+    "Shipping.UPS",
+    "Tax.Avalara",
+    "Widgets.AccessiBe"
+  ],
+  "PluginNamesToInstall": []
+}

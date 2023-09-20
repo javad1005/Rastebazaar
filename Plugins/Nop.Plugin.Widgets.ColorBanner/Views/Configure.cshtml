@@ -1,0 +1,236 @@
+﻿@model Nop.Plugin.Widgets.StoreDetails.Models.ConfigurationModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+<form asp-controller="WidgetsStoreDetails" asp-action="Configure" method="post">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="cards-group">
+
+                <!-- Secure Payment -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        پرداخت مطمئن
+                    </div>
+                    <div class="card-body">
+                        <!-- SecurePaymentTitel -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="SecurePaymentHiden_OverrideForStore" asp-input="SecurePaymentTitel" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="SecurePaymentTitel" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="SecurePaymentTitel" />
+                                <span asp-validation-for="SecurePaymentTitel"></span>
+                            </div>
+                        </div>
+                        <!-- SecurePaymentDescription -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="SecurePaymentDescription_OverrideForStore" asp-input="SecurePaymentDescription" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="SecurePaymentDescription" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="SecurePaymentDescription" />
+                                <span asp-validation-for="SecurePaymentDescription"></span>
+                            </div>
+                        </div>
+                        <!-- SecurePaymentHiden -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="SecurePaymentHiden_OverrideForStore" asp-input="SecurePaymentHiden" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="SecurePaymentHiden" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="SecurePaymentHiden" />
+                                <span asp-validation-for="SecurePaymentHiden"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Free Shipping -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        ارسال رایگان
+                    </div>
+                    <div class="card-body">
+                        <!-- FreeShippingTitel -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="FreeShippingTitel_OverrideForStore" asp-input="FreeShippingTitel" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="FreeShippingTitel" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="FreeShippingTitel" />
+                                <span asp-validation-for="FreeShippingTitel"></span>
+                            </div>
+                        </div>
+                        <!-- FreeShippingDescription -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="FreeShippingDescription_OverrideForStore" asp-input="FreeShippingDescription" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="FreeShippingDescription" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="FreeShippingDescription" />
+                                <span asp-validation-for="FreeShippingDescription"></span>
+                            </div>
+                        </div>
+                        <!-- FreeShippingHiden -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="FreeShippingHiden_OverrideForStore" asp-input="FreeShippingHiden" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="FreeShippingHiden" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="FreeShippingHiden" />
+                                <span asp-validation-for="FreeShippingHiden"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Money Back Guarantee -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        ضمانت بازگشت وجه
+                    </div>
+                    <div class="card-body">
+                        <!-- MoneyBackGuaranteeTitel -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="MoneyBackGuaranteeTitel_OverrideForStore" asp-input="MoneyBackGuaranteeTitel" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="MoneyBackGuaranteeTitel" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="MoneyBackGuaranteeTitel" />
+                                <span asp-validation-for="MoneyBackGuaranteeTitel"></span>
+                            </div>
+                        </div>
+                        <!-- MoneyBackGuaranteeDesciption -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="MoneyBackGuaranteeDesciption_OverrideForStore" asp-input="MoneyBackGuaranteeDesciption" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="MoneyBackGuaranteeDesciption" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="MoneyBackGuaranteeDesciption" />
+                                <span asp-validation-for="MoneyBackGuaranteeDesciption"></span>
+                            </div>
+                        </div>
+                        <!-- MoneyBackGuaranteeHiden -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="MoneyBackGuaranteeHiden_OverrideForStore" asp-input="MoneyBackGuaranteeHiden" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="MoneyBackGuaranteeHiden" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="MoneyBackGuaranteeHiden" />
+                                <span asp-validation-for="MoneyBackGuaranteeHiden"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Full Time Support-->
+                <div class="card card-default">
+                    <div class="card-header">
+                        پشتیبانی 24 ساعته و همه روزه
+                    </div>
+                    <div class="card-body">
+                        <!-- FullTimeSupportTitel -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="FullTimeSupportTitel_OverrideForStore" asp-input="FullTimeSupportTitel" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="FullTimeSupportTitel" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="FullTimeSupportTitel" />
+                                <span asp-validation-for="FullTimeSupportTitel"></span>
+                            </div>
+                        </div>
+                        <!-- FreeShippingDescription -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="FreeShippingDescription_OverrideForStore" asp-input="FreeShippingDescription" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="FreeShippingDescription" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="FreeShippingDescription" />
+                                <span asp-validation-for="FreeShippingDescription"></span>
+                            </div>
+                        </div>
+                        <!-- FreeShippingHiden-->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="FreeShippingHiden_OverrideForStore" asp-input="FreeShippingHiden" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="FreeShippingHiden" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="FreeShippingHiden" />
+                                <span asp-validation-for="FreeShippingHiden"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orginal Item Gurantee -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        ضمانت اصالت کالا
+                    </div>
+                    <div class="card-body">
+                        <!-- OrginalItemGuranteeTitel -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="OrginalItemGuranteeTitel_OverrideForStore" asp-input="OrginalItemGuranteeTitel" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="OrginalItemGuranteeTitel" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="OrginalItemGuranteeTitel" />
+                                <span asp-validation-for="OrginalItemGuranteeTitel"></span>
+                            </div>
+                        </div>
+                        <!-- OrginalItemGuranteeDescription -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="OrginalItemGuranteeDescription_OverrideForStore" asp-input="OrginalItemGuranteeDescription" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="OrginalItemGuranteeDescription" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="OrginalItemGuranteeDescription" />
+                                <span asp-validation-for="OrginalItemGuranteeDescription"></span>
+                            </div>
+                        </div>
+                        <!-- OrginalItemGuranteeHiden -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="OrginalItemGuranteeHiden_OverrideForStore" asp-input="OrginalItemGuranteeHiden" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="OrginalItemGuranteeHiden" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="OrginalItemGuranteeHiden" />
+                                <span asp-validation-for="OrginalItemGuranteeHiden"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Btn Save -->
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-9 offset-md-3">
+                                <button type="submit" name="save" class="btn btn-primary">@T("Admin.Common.Save")</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

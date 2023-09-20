@@ -1,0 +1,264 @@
+﻿@model TopMenuModel
+
+@using Nop.Core.Domain.Catalog
+@using Nop.Core.Domain.Topics
+@using Nop.Core.Domain.Customers
+
+@inject Nop.Core.IWebHelper webHelper
+
+@functions {
+    //create categories item
+    async Task CategoryLine(TopMenuModel.CategoryLineModel lineModel)
+    {
+        <li>
+            <span   class="fi fi-rr-clip"></span>
+            <a href="@(Url.RouteUrl<Category>(new { SeName = lineModel.Category.SeName }))">
+                @lineModel.Category.Name
+                @if (lineModel.Category.NumberOfProducts.HasValue)
+                {
+                    <text> </text>
+
+                    @T("Categories.TotalProducts", lineModel.Category.NumberOfProducts.Value)
+                }
+            </a>
+            @{
+                //subcategories
+                var subCategories = lineModel.ResponsiveMobileMenu ?
+                //responsive (all categories)
+                lineModel.Category.SubCategories :
+                //standard design (only categories with "IncludeInTopMenu")
+                lineModel.Category.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
+
+                var levelClass = "";
+                if (lineModel.Level == 0)
+                {
+                    levelClass = "first-level";
+                }
+                if (subCategories.Count > 0)
+                {
+                    <a href="javascript:void(0)" class="sublist-toggle">
+                        <p class="pi-arrow-point-to-right"></p>
+                    </a>
+                    <ul class="sublist @levelClass">
+                        @foreach (var subCategory in subCategories)
+                        {
+                            var categoryLineModel = new TopMenuModel.CategoryLineModel
+                    {
+                        Category = subCategory,
+                        Level = lineModel.Level + 1,
+                        ResponsiveMobileMenu = lineModel.ResponsiveMobileMenu
+                    };
+                            await CategoryLine(categoryLineModel);
+                        }
+                    </ul>
+                }
+            }
+        </li>
+    }
+}
+<!-- Desktop -->
+<ul class="top-menu notmobile">
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderMenuBefore, additionalData = Model })
+    @if (Model.DisplayHomepageMenuItem)
+    {
+        <li><a href="@Url.RouteUrl("Homepage")">@T("Homepage")</a></li>
+    }
+    @if (!Model.UseAjaxMenu)
+    {
+        var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+        //add categories item
+        @foreach (var category in rootCategories)
+        {
+            var categoryLineModel = new TopMenuModel.CategoryLineModel
+                    {
+                        Category = category
+                    };
+            await CategoryLine(categoryLineModel);
+        }
+    }
+    @foreach (var topic in Model.Topics)
+    {
+        <li><a href="@(Url.RouteUrl<Topic>(new { SeName = topic.SeName }))">@topic.Name</a></li>
+    }
+    @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
+    {
+        <li><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+    }
+    @if (Model.DisplayProductSearchMenuItem)
+    {
+        <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+    }
+    @if (Model.DisplayCustomerInfoMenuItem)
+    {
+        <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+    }
+    @if (Model.BlogEnabled && Model.DisplayBlogMenuItem)
+    {
+        <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+    }
+    @if (Model.ForumEnabled && Model.DisplayForumsMenuItem)
+    {
+        <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+    }
+    @if (Model.DisplayContactUsMenuItem)
+    {
+        <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+    }
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderMenuAfter, additionalData = Model })
+</ul>
+
+<!-- Mobile -->
+@{
+    var rootCategoriesResponsive = Model.Categories.ToList();
+    //name it "Categories" if we have only categories. Otherwise, "Menu"
+    var responsiveMenuTitle = Model.HasOnlyCategories ? T("Categories") : T("Menu");
+
+    <div id="mySidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+            <span class="fi fi-rr-cross"></span>
+        </a>
+        <div class="btn_holder">
+            <a href="javascript:void(0)" id="menu_btnshow_categories" class="btn_mobile_menu" onclick="ShowCategories()">
+        دسته ها
+        </a>
+        <a href="javascript:void(0)" id="menu_btnshow_dashboard" class="btn_mobile_menu" onclick="ShowDashboard()">
+        منو
+        </a>
+        </div>
+        <div class="menu_categories">
+            <div id="menu" class="slinky-menu slinky-theme-default">
+                <ul>
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MobHeaderMenuBefore, additionalData = Model })
+                    @if (Model.DisplayHomepageMenuItem)
+                    {
+                        <li><a href="@Url.RouteUrl("Homepage")">@T("Homepage")</a></li>
+                    }
+                    @if (!Model.UseAjaxMenu)
+                    {
+                        @foreach (var category in rootCategoriesResponsive)
+                        {
+                            var categoryLineModel = new TopMenuModel.CategoryLineModel
+                            {
+                                Category = category,
+                                ResponsiveMobileMenu = true
+                            };
+                            await CategoryLine(categoryLineModel);
+                        }
+                    }
+                    @foreach (var topic in Model.Topics)
+                    {
+                        <li>
+                           
+                            <a href="@(Url.RouteUrl<Topic>(new { SeName = topic.SeName }))">SSS</a>
+                        </li>
+                    }
+                    
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MobHeaderMenuAfter, additionalData = Model })
+                </ul>
+            </div>
+        </div>
+        <div class="menu_dashboard">
+            <div id="dashboard" class="slinky-menu slinky-theme-default">
+                <ul>
+                    @if (Model.HeaderLinksModel.IsAuthenticated)
+                    {
+                        <li>
+                            <span class="fi fi-rr-user"></span>
+                            <h4 class="login-text">
+                                <div class="account-option">
+                                    <strong>@Model.HeaderLinksModel.CustomerName</strong>
+                                </div>
+                            </h4>
+                        <a href="@Url.RouteUrl("CustomerInfo")" class="ico-account login-list-item">@T("Account.MyAccount")</a>
+                        </li>
+                    }
+                    else
+                    {
+                        var returnUrl = Context.Request.Query.TryGetValue("returnUrl", out var url) && !StringValues.IsNullOrEmpty(url)
+                        ? url.ToString()
+                        : webHelper.GetRawUrl(Context.Request);
+                        @if (Model.HeaderLinksModel.RegistrationType != UserRegistrationType.Disabled)
+                        {
+                            <li>
+                                <span class="fi fi-rr-user"></span>
+                                <a href="@Url.RouteUrl("Login", new { returnUrl })" class="ico-login login-list-item">ورود / ثبت نام</a>
+                            </li>
+                        }
+                    }
+                    <li id="topcartlink" class="px-cart-mobile">
+                        <span class="fi fi-rr-shopping-basket"> </span>
+                        <a href="@Url.RouteUrl("ShoppingCart")">سبد خرید</a>
+                    </li>
+                    <li>
+                        <span class="fi fi-rr-heart"></span>
+                        <a href="@Url.RouteUrl("Wishlist")">مورد علاقه ها</a>
+                    </li>
+                    <li>
+                        <span class="fi fi-rr-envelope"></span>
+                        <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })">پیام ها</a>
+                    </li>
+                    <li >
+                        <span class="fi fi-rr-time-fast"></span>
+                        <a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a>
+                    </li>
+                    @if (Model.BlogEnabled && Model.DisplayBlogMenuItem)
+                    {
+                        <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                    }
+                    @if (Model.ForumEnabled && Model.DisplayForumsMenuItem)
+                    {
+                        <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                    }
+                    <li >
+                        <span class="fi fi-rr-headset"></span>
+                        <a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>
+                    </li>
+                    
+                 
+                </ul>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+
+}
+<!-- JavaScript -->
+<script asp-location="Footer">
+    var slinky = undefined;
+    $(document).ready(function () {
+        slinky = $('#menu').slinky();
+        ShowCategories();
+        $("body .master-wrapper-content").attr("onclick", "closeNav()");
+    })
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "100%";
+    }
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+
+    $(".toggle").click(function () {
+        $(".header-menu").addClass("header-mobile");
+    });
+    $("body .master-wrapper-content").click(function () {
+        setTimeout(function () {
+            $(".header-menu").removeClass("header-mobile");
+        }, 500);
+    });
+
+
+
+    function ShowCategories(){
+        $("#dashboard").hide();
+        $("#menu").show();
+    }
+
+    function ShowDashboard(){
+        $("#menu").hide();
+        $("#dashboard").show();
+    }
+</script>

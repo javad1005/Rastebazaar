@@ -1,0 +1,59 @@
+﻿@{
+    //NopHtml.AddCssFileParts(RasteBazarDefaults.RasteBazarCssResource, excludeFromBundle: false);
+    //NopHtml.AddScriptParts(ResourceLocation.Footer, "~/Plugins/Nop.Plugin.RasteBazar/Scripts/Main.js", excludeFromBundle: false);
+
+    Layout = "_ColumnsTwo";
+}
+
+<div id="root">
+</div>
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        //GetCustomers();
+        GetToken();
+        //alert("test");
+    });
+    var token;
+    function GetCustomers() {
+        $.ajax({
+            cache: false,
+            type: 'GET',
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+            url: "/api/categories",
+            success: function (data) {
+                console.log(data);
+            }
+
+        });
+    }
+    function GetToken() {
+        $.ajax({
+            cache: false,
+            type: 'Post',
+            //dataType: "application/json",
+            //accept: "text/plain",
+            headers: {
+                "accept": "text/plain",
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify({
+                "guest": true,
+                "username": "alireza@gmail.com",
+                "password": "123456",
+                "remember_me": true
+            }),
+            url: "/token",
+            success: function (data) {
+                window.alert(data);
+                token = data.access_token;
+                GetCustomers();
+            }
+        });
+    }
+</script>
+@*<script asp-location="Footer" src="~/Scripts/Main.js"></script>*@
+
+@*@NopHtml.GenerateScripts(ResourceLocation.Footer)*@

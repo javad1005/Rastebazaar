@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <OutputPath>..\..\Presentation\Nop.Web\Plugins\RasteBazar</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Views\Configure.cshtml" />
+	  <None Remove="Views\Pages\AboutStore.cshtml" />
+	  <None Remove="Views\Pages\Customers.cshtml" />
+	  <None Remove="Views\Pages\Dashbord.cshtml" />
+	  <None Remove="Views\Pages\Factor.cshtml" />
+	  <None Remove="Views\Pages\Products.cshtml" />
+	  <None Remove="Views\Pages\Reports.cshtml" />
+	  <None Remove="Views\Pages\Settings.cshtml" />
+	  <None Remove="Views\PublicInfo.cshtml" />
+	  <None Remove="Views\_ViewImports.cshtml" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Content Include="Views\Configure.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Pages\Settings.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Pages\AboutStore.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Pages\Reports.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Pages\Customers.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Pages\Products.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Pages\Factor.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Pages\Dashbord.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\PublicInfo.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\_ViewImports.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj" />
+	  <ProjectReference Include="..\..\Libraries\Nop.Services\Nop.Services.csproj" />
+	  <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+	  <ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
+	  <ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="Content\Products.css">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="logo.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="plugin.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Scripts\Products.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="React.Core" Version="5.2.12" />
+	</ItemGroup>
+
+	<!-- This target execute after "Build" target -->
+	<Target Name="NopTarget" AfterTargets="Build">
+		<!-- Delete unnecessary libraries from plugins path -->
+		<MSBuild Projects="@(ClearPluginAssemblies)" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+	</Target>
+
+</Project>
