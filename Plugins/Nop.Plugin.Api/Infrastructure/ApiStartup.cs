@@ -63,9 +63,9 @@ namespace Nop.Plugin.Api.Infrastructure
 
 			if (apiConfigSection != null)
 			{
-                //var apiConfig = Singleton<AppSettings>.Instance.Get<ApiConfiguration>();
-                using (ApiConfiguration apiConfig = new ApiConfiguration())
-                {
+                var apiConfig = Singleton<AppSettings>.Instance.Get<ApiConfiguration>();
+                //using (ApiConfiguration apiConfig = new ApiConfiguration())
+                //{
                     if (!string.IsNullOrEmpty(apiConfig.SecurityKey))
                     {
                         services.AddAuthentication(options =>
@@ -91,7 +91,7 @@ namespace Nop.Plugin.Api.Infrastructure
                         //services.AddHostedService<ApplicationPartsLogger>();
 
                     }
-                }
+                //}
 			}
 			services.Configure<KestrelServerOptions>(options =>
 			{
