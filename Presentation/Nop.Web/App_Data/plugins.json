@@ -101,7 +101,10 @@
     }
   ],
   "PluginNamesToUninstall": [
-    "Payments.CyberSource"
+    "Payments.CyberSource",
+    "CurrencyExchange.ECB",
+    "Payments.CheckMoneyOrder",
+    "Payments.Manual"
   ],
   "PluginNamesToDelete": [
     "Nop.Plugin.MyReactApp",
