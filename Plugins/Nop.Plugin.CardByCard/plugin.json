@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Payment methods",
+  "FriendlyName": "Card By Card",
+  "SystemName": "Payment.CardByCard",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "rastebazare team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Payment.CardByCard.dll",
+  "Description": "این پلاگین امکان پرداخت کارت به کارت را به فروشگاه شما می دهد ."
+}

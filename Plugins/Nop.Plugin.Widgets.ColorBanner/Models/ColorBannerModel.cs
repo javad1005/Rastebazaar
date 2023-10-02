@@ -12,6 +12,7 @@ namespace Nop.Plugin.Widgets.ColorBanner.Models
         public string Name { get; set; }
         public string BackgroundColor { get; set; }
         public string PictureUrl { get; set; }
+        public int PictureId { get; set; }
         public string PictureAlt { get; set; }
         public string BannerTitel { get; set; }
         public string BannerDescription { get; set; }

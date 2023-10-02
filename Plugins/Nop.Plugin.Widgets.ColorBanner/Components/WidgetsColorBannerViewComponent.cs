@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Plugin.Widgets.ColorBanner;
+using Nop.Plugin.Widgets.ColorBanner.Infrastructure.Cache;
 using Nop.Plugin.Widgets.ColorBanner.Models;
 using Nop.Services.Configuration;
 using Nop.Services.Media;
@@ -36,34 +37,40 @@ namespace Nop.Plugin.Widgets.NivoSlider.Components
         public async Task<IViewComponentResult> InvokeAsync(string widgetZone, object additionalData)
         {
             var store = await _storeContext.GetCurrentStoreAsync();
-            var nivoSliderSettings = await _settingService.LoadSettingAsync<ColorBannerSettings>(store.Id);
+            var settings = await _settingService.LoadSettingAsync<ColorBannerSettings>(store.Id);
 
             var model = new ColorBannerModel
             {
-                
+                Name = settings.Name,
+                PictureUrl = await GetPictureUrlAsync(settings.PictureId),
+                PictureAlt = settings.PictureAlt,
+                BackgroundColor = settings.BackgroundColor,
+                BannerTitel = settings.BannerTitel,
+                BannerDescription = settings.BannerDescription,
+                ButtonContent = settings.ButtonContent
             };
 
-            //if (string.IsNullOrEmpty(model.Picture1Url) && string.IsNullOrEmpty(model.Picture2Url) &&
-            //    string.IsNullOrEmpty(model.Picture3Url) && string.IsNullOrEmpty(model.Picture4Url) &&
-            //    string.IsNullOrEmpty(model.Picture5Url))
-            //    //no pictures uploaded
-            //    return Content("");
+            if (string.IsNullOrEmpty(model.PictureUrl))
+            {
+                //no pictures uploaded
+                return Content("");
+            }
 
-            return View("~/Plugins/Widgets.NivoSlider/Views/PublicInfo.cshtml", model);
+            return View("~/Plugins/Widgets.ColorBanner/Views/ColorBanner.cshtml", model);
         }
 
         /// <returns>A task that represents the asynchronous operation</returns>
-        //protected async Task<string> GetPictureUrlAsync(int pictureId)
-        //{
-        //    var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(ModelCacheEventConsumer.PICTURE_URL_MODEL_KEY, 
-        //        pictureId, _webHelper.IsCurrentConnectionSecured() ? Uri.UriSchemeHttps : Uri.UriSchemeHttp);
+        protected async Task<string> GetPictureUrlAsync(int pictureId)
+        {
+            var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(ModelCacheEventConsumer.PICTURE_URL_MODEL_KEY,
+                pictureId, _webHelper.IsCurrentConnectionSecured() ? Uri.UriSchemeHttps : Uri.UriSchemeHttp);
 
-        //    return await _staticCacheManager.GetAsync(cacheKey, async () =>
-        //    {
-        //        //little hack here. nulls aren't cacheable so set it to ""
-        //        var url = await _pictureService.GetPictureUrlAsync(pictureId, showDefaultPicture: false) ?? "";
-        //        return url;
-        //    });
-        //}
+            return await _staticCacheManager.GetAsync(cacheKey, async () =>
+            {
+                //little hack here. nulls aren't cacheable so set it to ""
+                var url = await _pictureService.GetPictureUrlAsync(pictureId, showDefaultPicture: false) ?? "";
+                return url;
+            });
+        }
     }
 }

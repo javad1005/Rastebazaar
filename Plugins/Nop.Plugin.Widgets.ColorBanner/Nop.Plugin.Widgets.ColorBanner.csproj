@@ -2,6 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
+		<PackageProjectUrl>https://rastebazaar.ir</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/javad1005/Rastebazaar</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
 		<OutputPath>..\..\Presentation\Nop.Web\Plugins\Widgets.ColorBanner</OutputPath>
 		<OutDir>$(OutputPath)</OutDir>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>

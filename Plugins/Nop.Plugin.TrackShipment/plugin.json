@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Send Shipments",
+  "FriendlyName": "Track Shipments",
+  "SystemName": "SendShipments.TrackShipments",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "rastebazar team",
+  "DisplayOrder": -1,
+  "FileName": "Nop.Plugin.SendShipments.TrackShipments.dll",
+  "Description": "این پلاگین قابلیت پیرگیری مرسولات پستی را به شما می دهد ."
+}

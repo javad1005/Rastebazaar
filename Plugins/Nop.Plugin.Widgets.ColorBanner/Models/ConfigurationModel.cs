@@ -26,10 +26,10 @@ namespace Nop.Plugin.Widgets.StoreDetails.Models
         public bool BackgroundColor_OverrideForStore { get; set; }
 
         // Picture
-        [NopResourceDisplayName("Plugins.Widgets.ColorBanner.PictureUrl")]
-        [UIHint("Picture Url")]
-        public string PictureUrl { get; set; }
-        public bool PictureUrl_OverrideForStore { get; set; }
+        [NopResourceDisplayName("Plugins.Widgets.ColorBanner.PictureId")]
+        [UIHint("Picture Id")]
+        public int PictureId { get; set; }
+        public bool PictureId_OverrideForStore { get; set; }
 
         [NopResourceDisplayName("Plugins.Widgets.ColorBanner.PictureAlt")]
         [UIHint("Picture Alt")]

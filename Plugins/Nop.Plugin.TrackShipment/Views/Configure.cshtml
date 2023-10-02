@@ -1,0 +1,22 @@
+﻿@model ConfigurationModel
+@{
+    Layout = "_ConfigurePlugin";
+}
+<div id="root">
+    <form asp-controller="TrackShipment" asp-action="Configure" method="post">
+        <h1>Hello Raste Bazar</h1>
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="SetCredentialsManually_OverrideForStore" asp-input="SetCredentialsManually" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="SetCredentialsManually" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="SetCredentialsManually" />
+                        <span asp-validation-for="SetCredentialsManually"></span>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>

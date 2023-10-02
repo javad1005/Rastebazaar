@@ -1,0 +1,196 @@
+﻿@model Nop.Plugin.Payments.CardByCard.Models.ConfigurationModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+<form asp-controller="CardByCard" asp-action="Configure" method="post">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="cards-group">
+
+                <!-- Account 1 Details -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        مشخصات حساب 1
+                    </div>
+                    <div class="card-body">
+                        <!-- Account Owner Name 1 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="AccountOwnerName1_OverrideForStore" asp-input="AccountOwnerName1" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="AccountOwnerName1" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="AccountOwnerName1" />
+                                <span asp-validation-for="AccountOwnerName1"></span>
+                            </div>
+                        </div>
+                        <!-- Account Number 1 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">0
+                                <nop-override-store-checkbox asp-for="AccountNumber1_OverrideForStore" asp-input="AccountNumber1" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="AccountNumber1" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="AccountNumber1" />
+                                <span asp-validation-for="AccountNumber1"></span>
+                            </div>
+                        </div>
+                        <!-- Shaba Number 1 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="ShabaNumber1_OverrideForStore" asp-input="ShabaNumber1" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="ShabaNumber1" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ShabaNumber1" />
+                                <span asp-validation-for="ShabaNumber1"></span>
+                            </div>
+                        </div>
+                        <!-- Bank Name 1 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BankName1_OverrideForStore" asp-input="BankName1" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="BankName1" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="BankName1" />
+                                <span asp-validation-for="BankName1"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account 2 Details -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        مشخصات حساب 2
+                    </div>
+                    <div class="card-body">
+                        <!-- Account Owner Name 2 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="AccountOwnerName2_OverrideForStore" asp-input="AccountOwnerName2" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="AccountOwnerName2" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="AccountOwnerName2" />
+                                <span asp-validation-for="AccountOwnerName2"></span>
+                            </div>
+                        </div>
+                        <!-- Account Number 2 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="AccountNumber2_OverrideForStore" asp-input="AccountNumber2" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="AccountNumber2" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="AccountNumber2" />
+                                <span asp-validation-for="AccountNumber2"></span>
+                            </div>
+                        </div>
+                        <!-- Shaba Number 2 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="ShabaNumber2_OverrideForStore" asp-input="ShabaNumber2" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="ShabaNumber2" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ShabaNumber2" />
+                                <span asp-validation-for="ShabaNumber2"></span>
+                            </div>
+                        </div>
+                        <!-- Bank Name 1 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BankName2_OverrideForStore" asp-input="BankName2" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="BankName2" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="BankName2" />
+                                <span asp-validation-for="BankName2"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Communication with the seller -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        ارتباط با فروشنده
+                    </div>
+                    <div class="card-body">
+                        <!-- Phone Number 1 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="PhoneNumber1_OverrideForStore" asp-input="PhoneNumber1" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="PhoneNumber1" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PhoneNumber1" />
+                                <span asp-validation-for="PhoneNumber1"></span>
+                            </div>
+                        </div>
+                        <!-- Phone Number 2 -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="PhoneNumber2_OverrideForStore" asp-input="PhoneNumber2" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="PhoneNumber2" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PhoneNumber2" />
+                                <span asp-validation-for="PhoneNumber2"></span>
+                            </div>
+                        </div>
+                        <!-- Telegram Id -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="TelegramId_OverrideForStore" asp-input="TelegramId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="TelegramId" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="TelegramId" />
+                                <span asp-validation-for="TelegramId"></span>
+                            </div>
+                        </div>
+                        <!-- Instagram Id -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="InstagramId_OverrideForStore" asp-input="InstagramId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="InstagramId" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="InstagramId" />
+                                <span asp-validation-for="InstagramId"></span>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="Description_OverrideForStore" asp-input="Description" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="Description" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="Description" />
+                                <span asp-validation-for="Description"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Btn Save -->
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-9 offset-md-3">
+                                <button type="submit" name="save" class="btn btn-primary">@T("Admin.Common.Save")</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

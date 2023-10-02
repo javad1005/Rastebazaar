@@ -25,18 +25,21 @@ namespace Nop.Plugin.Widgets.StoreDetails.Controllers
         private readonly IPermissionService _permissionService;
         private readonly ISettingService _settingService;
         private readonly IStoreContext _storeContext;
+        private readonly IPictureService _pictureService;
 
         public WidgetsColorBannerController(ILocalizationService localizationService,
             INotificationService notificationService,
             IPermissionService permissionService, 
             ISettingService settingService,
-            IStoreContext storeContext)
+            IStoreContext storeContext,
+            IPictureService pictureService)
         {
             _localizationService = localizationService;
             _notificationService = notificationService;
             _permissionService = permissionService;
             _settingService = settingService;
             _storeContext = storeContext;
+            _pictureService = pictureService;
         }
 
         public async Task<IActionResult> Configure()
@@ -46,34 +49,31 @@ namespace Nop.Plugin.Widgets.StoreDetails.Controllers
 
             //load settings for a chosen store scope
             var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
-            var storeDetailsSettings = await _settingService.LoadSettingAsync<ColorBannerSettings>(storeScope);
+            var settings = await _settingService.LoadSettingAsync<ColorBannerSettings>(storeScope);
             var model = new ConfigurationModel
             {
-                //SecurePaymentTitel = storeDetailsSettings.SecurePaymentTitel,
-                //SecurePaymentDescription = storeDetailsSettings.SecurePaymentDescription,
-                //SecurePaymentHiden = storeDetailsSettings.SecurePaymentHiden,
-
-                //FreeShippingTitel = storeDetailsSettings.FreeShippingTitel,
-                //FreeShippingDescription = storeDetailsSettings.FreeShippingDescription,
-                //FreeShippingHiden = storeDetailsSettings.FreeShippingHiden,
-
+                BannerName = settings.BannerTitel,
+                BackgroundColor = settings.BackgroundColor,
+                BannerTitel = settings.BannerTitel,
+                BannerDescription = settings.BannerDescription,
+                PictureId = settings.PictureId,
+                PictureAlt = settings.PictureAlt,
+                ButtonContent = settings.ButtonContent,
                 ActiveStoreScopeConfiguration = storeScope
             };
 
             if (storeScope > 0)
             {
-                //model.SecurePaymentTitel_OverrideForStore = await _settingService.SettingExistsAsync(storeDetailsSettings, x => x.SecurePaymentTitel, storeScope);
-                //model.SecurePaymentDescription_OverrideForStore = await _settingService.SettingExistsAsync(storeDetailsSettings, x => x.SecurePaymentDescription, storeScope);
-                //model.SecurePaymentHiden_OverrideForStore = await _settingService.SettingExistsAsync(storeDetailsSettings, x => x.SecurePaymentHiden, storeScope);
-
-                //model.FreeShippingTitel_OverrideForStore = await _settingService.SettingExistsAsync(storeDetailsSettings, x => x.FreeShippingTitel, storeScope);
-                //model.FreeShippingDescription_OverrideForStore = await _settingService.SettingExistsAsync(storeDetailsSettings, x => x.FreeShippingDescription, storeScope);
-                //model.FreeShippingHiden_OverrideForStore = await _settingService.SettingExistsAsync(storeDetailsSettings, x => x.FreeShippingHiden, storeScope);
-
-
+                model.BannerName_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BannerName, storeScope);
+                model.BannerTitel_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BannerTitel, storeScope);
+                model.BannerDescription_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BannerDescription, storeScope);
+                model.BackgroundColor_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BackgroundColor, storeScope);
+                model.PictureId_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.PictureId, storeScope);
+                model.PictureAlt_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.PictureAlt, storeScope);
+                model.ButtonContent_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.ButtonContent, storeScope);
             }
 
-            return View("~/Plugins/Widgets.StoreDetails/Views/Configure.cshtml", model);
+            return View("~/Plugins/Widgets.ColorBanner/Views/Configure.cshtml", model);
         }
 
         [HttpPost]
@@ -84,31 +84,31 @@ namespace Nop.Plugin.Widgets.StoreDetails.Controllers
 
             //load settings for a chosen store scope
             var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
-            var storeDetailsSettings = await _settingService.LoadSettingAsync<ColorBannerSettings>(storeScope);
+            var settings = await _settingService.LoadSettingAsync<ColorBannerSettings>(storeScope);
 
-            //storeDetailsSettings.SecurePaymentTitel = model.SecurePaymentTitel;
-            //storeDetailsSettings.SecurePaymentDescription = model.SecurePaymentDescription;
-            //storeDetailsSettings.SecurePaymentHiden = model.SecurePaymentHiden;
-
-            //storeDetailsSettings.FreeShippingTitel = model.FreeShippingTitel;
-            //storeDetailsSettings.FreeShippingDescription = model.FreeShippingDescription;
-            //storeDetailsSettings.FreeShippingHiden = model.FreeShippingHiden;
-
-            //storeDetailsSettings.MoneyBackGuaranteeTitel = model.MoneyBackGuaranteeTitel;
-            //storeDetailsSettings.MoneyBackGuaranteeDesciption = model.MoneyBackGuaranteeDesciption;
-            //storeDetailsSettings.MoneyBackGuaranteeHiden = model.MoneyBackGuaranteeHiden;
+            settings.BannerName = model.BannerName;
+            settings.BannerTitel = model.BannerTitel;
+            settings.BannerDescription = model.BannerDescription;
+            settings.BackgroundColor = model.BackgroundColor;
+            settings.PictureId = model.PictureId;
+            settings.PictureAlt = model.PictureAlt;
+            settings.ButtonContent = model.ButtonContent;
 
             /* We do not clear cache after each setting update.
              * This behavior can increase performance because cached settings will not be cleared 
              * and loaded from database after each update */
-            //await _settingService.SaveSettingOverridablePerStoreAsync(storeDetailsSettings, x => x.SecurePaymentTitel, model.SecurePaymentTitel_OverrideForStore, storeScope, false);
-            //await _settingService.SaveSettingOverridablePerStoreAsync(storeDetailsSettings, x => x.SecurePaymentDescription, model.SecurePaymentDescription_OverrideForStore, storeScope, false);
-            //await _settingService.SaveSettingOverridablePerStoreAsync(storeDetailsSettings, x => x.SecurePaymentHiden, model.SecurePaymentHiden_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BannerName, model.BannerName_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BannerTitel, model.BannerTitel_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BannerDescription, model.BannerDescription_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BackgroundColor, model.BackgroundColor_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.PictureId, model.PictureId_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.PictureAlt, model.PictureAlt_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.ButtonContent, model.ButtonContent_OverrideForStore, storeScope, false);
 
-            //await _settingService.SaveSettingOverridablePerStoreAsync(storeDetailsSettings, x => x.FreeShippingTitel, model.FreeShippingTitel_OverrideForStore, storeScope, false);
-            //await _settingService.SaveSettingOverridablePerStoreAsync(storeDetailsSettings, x => x.FreeShippingDescription, model.FreeShippingDescription_OverrideForStore, storeScope, false);
-            //await _settingService.SaveSettingOverridablePerStoreAsync(storeDetailsSettings, x => x.FreeShippingHiden, model.FreeShippingHiden_OverrideForStore, storeScope, false);
-
+            //delete an old picture (if deleted or updated)
+            var previousPicture = await _pictureService.GetPictureByIdAsync(settings.PictureId);
+            if (previousPicture != null)
+                await _pictureService.DeletePictureAsync(previousPicture);
 
             //now clear settings cache
             await _settingService.ClearCacheAsync();
