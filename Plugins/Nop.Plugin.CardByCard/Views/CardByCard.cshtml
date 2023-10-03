@@ -2,5 +2,41 @@
 @{
     Layout = "";
 }
-
-<h2>Card By Card Widghet</h2>
+<link rel="stylesheet" href="~/Plugins/Payment.CardByCard/Content/Styles.css"  />
+<div class="payment_detail_continer">
+    <div class="pament_detail_content">
+        <h1>اطلاعات پرداخت</h1>
+        <div class="pament_detail_line">
+            <label>مالک حساب :</label>
+            <label asp-for="AccountOwnerName1">@Model.AccountOwnerName1</label>
+        </div>
+        <div class="pament_detail_line">
+            <label>شماره حساب :</label>
+            <label asp-for="AccountNumber1">@Model.AccountNumber1</label>
+        </div>
+        <div class="pament_detail_line">
+            <label>شماره شبا :</label>
+            <label asp-for="ShabaNumber1">@Model.ShabaNumber1</label>
+        </div>
+        <div class="pament_detail_line">
+            <label>نام بانک :</label>
+            <label asp-for="BankName1">@Model.BankName1</label>
+        </div>
+        <div class="pament_detail_line">
+            <label>شماره تماس :</label>
+            <label asp-for="PhoneNumber1">@Model.PhoneNumber1</label>
+        </div>
+        <div class="pament_detail_line">
+            <label>آیدی تلگرام :</label>
+            <label asp-for="TelegramId">@Model.TelegramId</label>
+        </div>
+        <div class="pament_detail_line">
+            <label>آیدی اینستاگرام :</label>
+            <label asp-for="InstagramId">@Model.InstagramId</label>
+        </div>
+        <div class="pament_detail_line">
+            <label>توضیحات پرداخت :</label>
+            <label asp-for="Description">@Model.Description</label>
+        </div>
+    </div>
+</div>

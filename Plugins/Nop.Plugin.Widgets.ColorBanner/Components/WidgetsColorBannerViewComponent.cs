@@ -41,7 +41,7 @@ namespace Nop.Plugin.Widgets.NivoSlider.Components
 
             var model = new ColorBannerModel
             {
-                Name = settings.Name,
+                Name = settings.BannerName,
                 PictureUrl = await GetPictureUrlAsync(settings.PictureId),
                 PictureAlt = settings.PictureAlt,
                 BackgroundColor = settings.BackgroundColor,

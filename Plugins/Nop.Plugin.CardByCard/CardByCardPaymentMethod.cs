@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Primitives;
 using Nop.Core;
 using Nop.Core.Domain.Cms;
@@ -8,7 +6,7 @@ using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Payments;
 using Nop.Plugin.Payment.CardByCard;
-using Nop.Plugin.Payment.CardByCard.Service;
+using Nop.Plugin.Payment.CardByCard.Models;
 using Nop.Plugin.Payments.CardByCard.Components;
 using Nop.Services.Cms;
 using Nop.Services.Common;
@@ -34,9 +32,7 @@ namespace Nop.Plugin.Payments.CardByCard
     {
         #region Fields
 
-        private readonly ICurrencyService _currencyService;
         private readonly ILocalizationService _localizationService;
-        private readonly IPaymentService _paymentService;
         private readonly ISettingService _settingService;
         private readonly IStoreService _storeService;
         private readonly IWebHelper _webHelper;
@@ -50,24 +46,23 @@ namespace Nop.Plugin.Payments.CardByCard
         #region Ctor
 
         public CardByCardPaymentMethod(
-            ICurrencyService currencyService,
-            IGenericAttributeService genericAttributeService,
             ILocalizationService localizationService,
-            IPaymentService paymentService,
             ISettingService settingService,
             IStoreService storeService,
+            IWebHelper webHelper,
+            IOrderTotalCalculationService orderTotalCalculationService,
             PaymentSettings paymentSettings,
             CardByCardSettings settings,
             WidgetSettings widgetSettings)
         {
-            _currencyService = currencyService;
             _localizationService = localizationService;
-            _paymentService = paymentService;
             _settingService = settingService;
             _storeService = storeService;
             _paymentSettings = paymentSettings;
             _settings = settings;
             _widgetSettings = widgetSettings;
+            _webHelper = webHelper;
+            _orderTotalCalculationService = orderTotalCalculationService;
         }
 
         #endregion
@@ -346,23 +341,16 @@ namespace Nop.Plugin.Payments.CardByCard
         /// </returns>
         public Task<IList<string>> ValidatePaymentFormAsync(IFormCollection form)
         {
-            var warnings = new List<string>();
+            if (form == null)
+                throw new ArgumentNullException(nameof(form));
 
-            //validate
-            //var validator = new PaymentInfoValidator(_localizationService);
-            //var model = new PaymentInfoModel
-            //{
-            //    CardholderName = form["CardholderName"],
-            //    CardNumber = form["CardNumber"],
-            //    CardCode = form["CardCode"],
-            //    ExpireMonth = form["ExpireMonth"],
-            //    ExpireYear = form["ExpireYear"]
-            //};
-            //var validationResult = validator.Validate(model);
-            //if (!validationResult.IsValid)
-            //    warnings.AddRange(validationResult.Errors.Select(error => error.ErrorMessage));
+            var errors = new List<string>();
 
-            return Task.FromResult<IList<string>>(warnings);
+            //try to get errors from the form parameters
+            if (form.TryGetValue(nameof(PaymentInfoModel.Errors), out var errorValue) && !StringValues.IsNullOrEmpty(errorValue))
+                errors.Add(errorValue.ToString());
+
+            return Task.FromResult<IList<string>>(errors);
         }
 
         /// <summary>

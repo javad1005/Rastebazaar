@@ -2,14 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
-using Nop.Plugin.RasteBazar.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nop.Plugin.RasteBazar.Infrastructure
+namespace Nop.Plugin.TrackShipment.Infrastructure
 {
     /// <summary>
     /// Represents object for the configuring services on application startup
@@ -37,7 +36,6 @@ namespace Nop.Plugin.RasteBazar.Infrastructure
         /// <param name="configuration">Configuration of the application</param>
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<ICheckService, CheckService>();
         }
     }
 }

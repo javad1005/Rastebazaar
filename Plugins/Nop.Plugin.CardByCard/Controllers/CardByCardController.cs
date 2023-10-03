@@ -93,7 +93,7 @@ namespace Nop.Plugin.Payments.CardByCard.Controllers
 
             }
 
-            return View("~/Plugins/CardByCard/Views/Configure.cshtml", model);
+            return View("~/Plugins/Payment.CardByCard/Views/Configure.cshtml", model);
         }
 
         [HttpPost]

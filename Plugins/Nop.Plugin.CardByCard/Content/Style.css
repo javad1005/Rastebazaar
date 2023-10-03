@@ -1,0 +1,16 @@
+﻿.pament_detail_continer {
+    width: 100%;
+    height: auto;
+    color: #404040;
+}
+
+.pament_detail_content {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: right;
+}
+
+.pament_detail_content .pament_detail_line {
+    margin-top: 10px;
+}
