@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
@@ -106,14 +107,17 @@ namespace Nop.Web.Framework.Mvc.Filters
 
                 //link caching can cause unstable behavior in development environments, when we use permanent redirects
                 var isPermanent = !_webHostEnvironment.IsDevelopment();
+                // TODO for local host
+                if (!context.HttpContext.Request.Host.ToString().ToLower().Contains("rastebazaar.ir"))
+                {
+                    //page should be secured, so redirect (permanent) to HTTPS version of page
+                    if (store.SslEnabled && !currentConnectionSecured)
+                        context.Result = new RedirectResult(_webHelper.GetThisPageUrl(true, true), isPermanent);
 
-                //page should be secured, so redirect (permanent) to HTTPS version of page
-                if (store.SslEnabled && !currentConnectionSecured)
-                    context.Result = new RedirectResult(_webHelper.GetThisPageUrl(true, true), isPermanent);
-
-                //page shouldn't be secured, so redirect (permanent) to HTTP version of page
-                if (!store.SslEnabled && currentConnectionSecured)
-                    context.Result = new RedirectResult(_webHelper.GetThisPageUrl(true, false), isPermanent);
+                    //page shouldn't be secured, so redirect (permanent) to HTTP version of page
+                    if (!store.SslEnabled && currentConnectionSecured)
+                        context.Result = new RedirectResult(_webHelper.GetThisPageUrl(true, false), isPermanent);
+                }
             }
 
             #endregion
