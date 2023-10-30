@@ -108,7 +108,8 @@ namespace Nop.Web.Framework.Mvc.Filters
                 //link caching can cause unstable behavior in development environments, when we use permanent redirects
                 var isPermanent = !_webHostEnvironment.IsDevelopment();
                 // TODO for local host
-                if (!context.HttpContext.Request.Host.ToString().ToLower().Contains("rastebazaar.ir"))
+                if (!context.HttpContext.Request.Host.ToString().ToLower().Contains("rastebazaar.ir")
+                    && !context.HttpContext.Request.Host.ToString().ToLower().Contains("localhost"))
                 {
                     //page should be secured, so redirect (permanent) to HTTPS version of page
                     if (store.SslEnabled && !currentConnectionSecured)
