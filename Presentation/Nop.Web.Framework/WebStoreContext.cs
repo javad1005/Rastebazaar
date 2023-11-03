@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -88,7 +89,14 @@ namespace Nop.Web.Framework
 
             //try to determine the current store by HOST header
             string host = _httpContextAccessor.HttpContext?.Request.Headers[HeaderNames.Host];
-
+            if (string.IsNullOrEmpty(host) && File.Exists("defaulthost"))
+            {
+                host = File.ReadAllText("defaulthost");
+            }
+            else if (host != null && host.Contains("localhost"))
+            {
+                host = "localhost";
+            }
             //we cannot call async methods here. otherwise, an application can hang. so it's a workaround to avoid that
             var allStores = _storeRepository.GetAll(query =>
             {
