@@ -423,8 +423,8 @@ namespace Nop.Plugin.Payments.PayPalCommerce
             if (widgetZone.Equals(PublicWidgetZones.ProductDetailsAddInfo) || widgetZone.Equals(PublicWidgetZones.OrderSummaryContentAfter))
                 return typeof(ButtonsViewComponent);
 
-            if (widgetZone.Equals(PublicWidgetZones.HeaderLinksBefore) || widgetZone.Equals(PublicWidgetZones.Footer))
-                return typeof(LogoViewComponent);
+            //if (widgetZone.Equals(PublicWidgetZones.HeaderLinksBefore) || widgetZone.Equals(PublicWidgetZones.Footer))
+            //    return typeof(LogoViewComponent);
 
             return null;
         }
