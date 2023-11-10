@@ -73,7 +73,8 @@
                     @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_poll" })
                     @await Component.InvokeAsync("HomepagePolls")
                    @*@await Component.InvokeAsync("Widget", new { widgetZone = "home_page_bottom" })*@
-                </div>
+@*                    @await Component.InvokeAsync(typeof(Nop.Web.Components.WidgetViewComponent), new { widgetZone = PublicWidgetZones.HomepageBottom })
+*@                </div>
             </div>
 
         </div>
